@@ -1,0 +1,733 @@
+/* ========================================
+   ESTILOS GLOBALES Y RESET
+======================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 25%, #0f3460 50%, #1a1a2e 75%, #16213e 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 20s ease infinite;
+    color: #fff;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+}
+
+/* Animación de fondo degradado */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ========================================
+   CORAZONES FLOTANTES (Decorativos)
+======================================== */
+.floating-heart {
+    position: fixed;
+    font-size: 24px;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1;
+    animation: floatHeart 8s ease-in-out;
+}
+
+@keyframes floatHeart {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    50% {
+        opacity: 0.6;
+    }
+    90% {
+        opacity: 0.2;
+    }
+    100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* ========================================
+   ENCABEZADO PRINCIPAL
+======================================== */
+header {
+    text-align: center;
+    padding: 80px 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(255,182,193,0.15) 0%, transparent 70%);
+    animation: pulse 4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+h1 {
+    font-size: 4em;
+    font-weight: 900;
+    background: linear-gradient(45deg, #ffd700, #ffb6c1, #ff69b4, #ffd700);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: textShine 4s ease infinite;
+    text-shadow: 0 0 40px rgba(255,215,0,0.3);
+    margin-bottom: 20px;
+    position: relative;
+}
+
+@keyframes textShine {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.subtitle {
+    font-size: 1.3em;
+    opacity: 0.9;
+    margin-top: 15px;
+    color: #ffb6c1;
+}
+
+/* ========================================
+   CONTENEDOR PRINCIPAL Y SECCIONES
+======================================== */
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.section {
+    background: rgba(30, 30, 60, 0.6);
+    backdrop-filter: blur(15px);
+    border-radius: 30px;
+    padding: 50px;
+    margin-bottom: 40px;
+    border: 1px solid rgba(255,182,193,0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 48px rgba(255,105,180,0.3);
+}
+
+h2 {
+    font-size: 2.5em;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #ffd700;
+    text-shadow: 2px 2px 10px rgba(255,215,0,0.3);
+}
+
+.section-intro {
+    text-align: center;
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    color: #ffb6c1;
+    opacity: 0.9;
+}
+
+/* ========================================
+   GALERÍA DE TU BELLEZA
+======================================== */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.card {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    cursor: pointer;
+    aspect-ratio: 1;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.8) 100%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 1;
+}
+
+.card:hover::before {
+    opacity: 1;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 20px 50px rgba(255,105,180,0.5);
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    transform: translateY(100%);
+    transition: transform 0.3s;
+    z-index: 2;
+}
+
+.card:hover .card-content {
+    transform: translateY(0);
+}
+
+.caption {
+    font-size: 1.1em;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
+    color: #ffd700;
+}
+
+/* ========================================
+   NUESTROS LUGARES FAVORITOS
+======================================== */
+.places-map {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.place-pin {
+    background: linear-gradient(135deg, rgba(255,182,193,0.2), rgba(255,105,180,0.1));
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    border: 2px solid rgba(255,215,0,0.4);
+    transition: all 0.4s ease;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.place-pin:nth-child(1) { animation-delay: 0.1s; }
+.place-pin:nth-child(2) { animation-delay: 0.2s; }
+.place-pin:nth-child(3) { animation-delay: 0.3s; }
+.place-pin:nth-child(4) { animation-delay: 0.4s; }
+.place-pin:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.place-pin:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(255,105,180,0.4);
+    border-color: #ffd700;
+}
+
+.pin-icon {
+    font-size: 4em;
+    margin-bottom: 15px;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.place-pin h3 {
+    font-size: 1.5em;
+    color: #ffd700;
+    margin-bottom: 10px;
+}
+
+.place-pin p {
+    font-size: 1em;
+    color: #ffb6c1;
+    line-height: 1.6;
+}
+
+/* ========================================
+   MURO DE RECUERDOS CINEMATOGRÁFICOS
+======================================== */
+.memory-wall {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.memory-item {
+    aspect-ratio: 1;
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+}
+
+.memory-item:hover {
+    transform: scale(1.08);
+    box-shadow: 0 10px 40px rgba(255,105,180,0.5);
+}
+
+.memory-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* ========================================
+   FRASES QUE ME HICISTE DECIR
+======================================== */
+.phrases-container {
+    background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,105,180,0.15));
+    padding: 50px;
+    border-radius: 25px;
+    text-align: center;
+    margin: 30px auto;
+    max-width: 900px;
+    border: 2px solid rgba(255,215,0,0.4);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+
+.romantic-phrase {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 2em;
+    font-style: italic;
+    line-height: 1.6;
+    color: #ffd700;
+    text-shadow: 2px 2px 8px rgba(255,215,0,0.3);
+    margin: 30px 0;
+    transition: opacity 0.5s ease;
+}
+
+/* ========================================
+   100 RAZONES POR LAS QUE TE AMO
+======================================== */
+.reasons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.reason-card {
+    background: linear-gradient(135deg, rgba(255,182,193,0.2), rgba(255,105,180,0.1));
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid rgba(255,215,0,0.3);
+    transition: all 0.3s;
+}
+
+.reason-card:hover {
+    transform: translateY(-5px);
+    background: linear-gradient(135deg, rgba(255,182,193,0.3), rgba(255,105,180,0.2));
+    box-shadow: 0 10px 30px rgba(255,105,180,0.4);
+    border-color: #ffd700;
+}
+
+.reason-number {
+    font-size: 2em;
+    font-weight: bold;
+    color: #ffd700;
+    margin-bottom: 10px;
+}
+
+.reason-text {
+    font-size: 1.05em;
+    line-height: 1.6;
+    color: #ffb6c1;
+}
+
+/* ========================================
+   JUEGO DE ROMPECABEZAS DEL AMOR
+======================================== */
+.puzzle-container {
+    max-width: 600px;
+    margin: 30px auto;
+    text-align: center;
+}
+
+.puzzle-info {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    font-size: 1.2em;
+    color: #ffd700;
+}
+
+.puzzle-grid {
+    display: grid;
+    gap: 5px;
+    background: rgba(0,0,0,0.4);
+    padding: 10px;
+    border-radius: 15px;
+    margin: 0 auto;
+    width: fit-content;
+    border: 2px solid rgba(255,215,0,0.3);
+}
+
+.puzzle-piece {
+    background-size: cover;
+    background-position: center;
+    border: 2px solid rgba(255,182,193,0.5);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.puzzle-piece:hover {
+    transform: scale(1.05);
+    border-color: #ffd700;
+    box-shadow: 0 0 15px rgba(255,215,0,0.5);
+}
+
+.puzzle-piece.empty {
+    background: rgba(255,182,193,0.15);
+    border-style: dashed;
+    border-color: rgba(255,215,0,0.4);
+}
+
+.puzzle-controls {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+/* ========================================
+   POEMAS DE MI CORAZÓN
+======================================== */
+.poem-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.poem-card {
+    background: linear-gradient(135deg, rgba(255,182,193,0.2), rgba(255,105,180,0.1));
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,215,0,0.3);
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.poem-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    background: linear-gradient(135deg, rgba(255,182,193,0.3), rgba(255,105,180,0.2));
+    box-shadow: 0 15px 40px rgba(255,105,180,0.4);
+    border-color: #ffd700;
+}
+
+.poem-card h3 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    color: #ffd700;
+    text-align: left;
+}
+
+.poem-card p {
+    line-height: 1.8;
+    font-size: 1.1em;
+    color: #ffb6c1;
+}
+
+/* ========================================
+   NUESTRA HISTORIA DE AMOR (TIMELINE)
+======================================== */
+.timeline {
+    position: relative;
+    padding: 40px 0;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(to bottom, #ffd700, #ff69b4, #ffb6c1);
+    transform: translateX(-50%);
+}
+
+.timeline-item {
+    display: flex;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+.timeline-item:nth-child(odd) {
+    flex-direction: row-reverse;
+}
+
+.timeline-content {
+    width: 45%;
+    background: rgba(255,182,193,0.15);
+    backdrop-filter: blur(10px);
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,215,0,0.3);
+    position: relative;
+}
+
+.timeline-content h3 {
+    font-size: 1.3em;
+    color: #ffd700;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.timeline-content p {
+    line-height: 1.6;
+    color: #ffb6c1;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: 50%;
+    width: 24px;
+    height: 24px;
+    background: #ffd700;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 20px rgba(255,215,0,0.8);
+    z-index: 2;
+    border: 3px solid #1a1a2e;
+}
+
+/* ========================================
+   MENSAJES DEL CORAZÓN
+======================================== */
+.love-message-box {
+    background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,105,180,0.2));
+    padding: 40px;
+    border-radius: 25px;
+    text-align: center;
+    margin: 30px 0;
+    border: 2px solid rgba(255,215,0,0.4);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+
+.love-message-box p {
+    font-size: 1.5em;
+    line-height: 1.8;
+    margin: 20px 0;
+    color: #ffd700;
+    transition: opacity 0.3s;
+}
+
+/* ========================================
+   BOTONES INTERACTIVOS
+======================================== */
+.interactive-button {
+    background: linear-gradient(135deg, #ff69b4, #ffd700);
+    color: #1a1a2e;
+    padding: 18px 40px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 10px 30px rgba(255,105,180,0.4);
+    margin: 10px;
+    font-weight: 700;
+}
+
+.interactive-button:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(255,215,0,0.5);
+    background: linear-gradient(135deg, #ffd700, #ff69b4);
+}
+
+.interactive-button:active {
+    transform: translateY(0);
+}
+
+.interactive-button:focus {
+    outline: 3px solid rgba(255,215,0,0.6);
+    outline-offset: 3px;
+}
+
+/* ========================================
+   MODALES
+======================================== */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    padding: 50px;
+    border-radius: 30px;
+    max-width: 700px;
+    max-height: 85vh;
+    overflow-y: auto;
+    text-align: center;
+    animation: modalPop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    box-shadow: 0 20px 60px rgba(255,105,180,0.5);
+    border: 2px solid rgba(255,215,0,0.4);
+}
+
+@keyframes modalPop {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.modal-content h3 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #ffd700;
+}
+
+.modal-content p {
+    font-size: 1.2em;
+    line-height: 1.8;
+    margin: 20px 0;
+    color: #ffb6c1;
+    white-space: pre-line;
+}
+
+.modal-content img {
+    max-width: 100%;
+    max-height: 60vh;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* ========================================
+   PIE DE PÁGINA
+======================================== */
+footer {
+    text-align: center;
+    padding: 50px 20px;
+    margin-top: 50px;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(10px);
+    border-top: 2px solid rgba(255,215,0,0.3);
+}
+
+.footer-main {
+    font-size: 1.3em;
+    color: #ffd700;
+    margin-bottom: 10px;
+}
+
+.footer-sub {
+    opacity: 0.8;
+    color: #ffb6c1;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+======================================== */
+@media (max-width: 768px) {
+    h1 { font-size: 2.5em; }
+    h2 { font-size: 2em; }
+    
+    .section { padding: 30px 20px; }
+    
+    .gallery {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+    }
+    
+    .places-map {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .memory-wall {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 10px;
+    }
+    
+    .romantic-phrase {
+        font-size: 1.5em;
+    }
+    
+    .reasons-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .timeline::before { left: 20px; }
+    
+    .timeline-content {
+        width: calc(100% - 60px);
+        margin-left: 60px;
+    }
+    
+    .timeline-item {
+        flex-direction: column !important;
+    }
+    
+    .timeline-dot { left: 20px; }
+    
+    .modal-content {
+        padding: 30px 20px;
+        max-width: 90%;
+    }
+    
+    .interactive-button {
+        padding: 15px 30px;
+        font-size: 1em;
+    }
+}
