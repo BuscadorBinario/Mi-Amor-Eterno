@@ -11,9 +11,26 @@
     <!-- Contenedor de corazones flotantes -->
     <div id="floating-hearts" aria-hidden="true"></div>
 
+    <!-- Botón flotante Te Amo -->
+    <button class="te-amo-button" onclick="triggerFireworks()" aria-label="Te Amo">❤️ Te Amo</button>
+
+    <!-- Reloj con foto de fondo -->
+    <div class="clock-widget" id="clock-widget" onclick="showClockMemory()">
+        <div id="clock-time"></div>
+    </div>
+
+    <!-- Corazón pulsante contador -->
+    <div class="heartbeat-counter" onclick="toggleHeartDetails()">
+        <div class="heart-icon">❤️</div>
+        <div class="days-count" id="days-together">0</div>
+    </div>
+
+    <!-- Contenedor de fuegos artificiales -->
+    <canvas id="fireworks-canvas"></canvas>
+
     <!-- Encabezado Principal -->
-    <header>
-        <h1>Mi Amor Eterno</h1>
+    <header onmouseover="createPetalRain()">
+        <h1 id="main-title">Mi Amor Eterno</h1>
         <p class="subtitle">Un universo dedicado a celebrar nuestro amor infinito</p>
     </header>
 
@@ -23,6 +40,16 @@
             <h2>Galería de Tu Belleza</h2>
             <p class="section-intro">16 momentos que capturan tu esencia única</p>
             <div class="gallery" id="solo-gallery"></div>
+        </section>
+
+        <!-- Sección: Mapa del Amor -->
+        <section class="section" id="mapa-amor">
+            <h2>Mapa del Amor</h2>
+            <p class="section-intro">Nuestros lugares especiales en Piura</p>
+            <div class="love-map-container">
+                <svg class="love-map-connections" id="love-connections"></svg>
+                <div class="love-map-pins" id="love-map"></div>
+            </div>
         </section>
 
         <!-- Sección: Nuestros Lugares Favoritos -->
@@ -65,6 +92,34 @@
             <div class="memory-wall" id="memory-wall"></div>
         </section>
 
+        <!-- Sección: Adivina la Foto -->
+        <section class="section" id="adivina-foto">
+            <h2>Adivina la Foto</h2>
+            <p class="section-intro">¿Puedes reconocernos en estas imágenes?</p>
+            <div class="guess-game-container">
+                <div class="guess-image-container" id="guess-image-container">
+                    <img id="guess-image" src="" alt="Imagen borrosa">
+                    <div class="guess-overlay" id="guess-overlay"></div>
+                </div>
+                <div class="guess-options" id="guess-options"></div>
+                <button class="interactive-button" onclick="newGuessRound()">Jugar Otra Vez</button>
+            </div>
+        </section>
+
+        <!-- Sección: Encuentra el Beso -->
+        <section class="section" id="encuentra-beso">
+            <h2>Encuentra el Beso</h2>
+            <p class="section-intro">Haz clic 7 veces para revelar nuestro momento especial</p>
+            <div class="kiss-game-container">
+                <div class="kiss-image-wrapper" id="kiss-wrapper" onclick="clickKissGame(event)">
+                    <img src="1.jpeg" alt="Nosotros en el cine">
+                    <div class="kiss-heart-overlay" id="kiss-heart">💋</div>
+                    <div class="kiss-confetti" id="kiss-confetti"></div>
+                </div>
+                <div class="kiss-counter">Clics restantes: <span id="kiss-clicks">7</span></div>
+            </div>
+        </section>
+
         <!-- Sección: Frases Que Me Hiciste Decir -->
         <section class="section" id="frases-romanticas">
             <h2>Frases Que Me Hiciste Decir</h2>
@@ -84,6 +139,13 @@
             <h2>100 Razones Por Las Que Te Amo</h2>
             <p class="section-intro">Cada una de estas razones es un latido de mi corazón</p>
             <div class="reasons-grid" id="reasons-grid"></div>
+        </section>
+
+        <!-- Sección: Citas Pendientes -->
+        <section class="section" id="citas-pendientes">
+            <h2>Citas Pendientes</h2>
+            <p class="section-intro">Nuestros planes futuros por vivir</p>
+            <div class="dates-list" id="dates-list"></div>
         </section>
 
         <!-- Sección: Juego de Rompecabezas del Amor -->
@@ -107,6 +169,25 @@
             </div>
         </section>
 
+        <!-- Sección: Escribe tu Propio Poema -->
+        <section class="section" id="escribe-poema">
+            <h2>Escribe tu Propio Poema</h2>
+            <p class="section-intro">Crea un poema especial para nosotros</p>
+            <div class="poem-editor">
+                <input type="text" id="poem-title" placeholder="Título del poema" class="poem-input">
+                <textarea id="poem-text" placeholder="Escribe tu poema aquí..." class="poem-textarea"></textarea>
+                <div class="poem-suggestions">
+                    <p>Palabras sugeridas:</p>
+                    <button onclick="insertWord('amor')">amor</button>
+                    <button onclick="insertWord('corazón')">corazón</button>
+                    <button onclick="insertWord('eternidad')">eternidad</button>
+                    <button onclick="insertWord('sueños')">sueños</button>
+                    <button onclick="insertWord('juntos')">juntos</button>
+                </div>
+                <button class="interactive-button" onclick="saveCustomPoem()">Guardar Poema</button>
+            </div>
+        </section>
+
         <!-- Sección: Poemas de Mi Corazón -->
         <section class="section" id="poemas-corazon">
             <h2>Poemas de Mi Corazón</h2>
@@ -116,6 +197,9 @@
         <!-- Sección: Nuestra Historia de Amor -->
         <section class="section" id="historia-amor">
             <h2>Nuestra Historia de Amor</h2>
+            <button class="interactive-button" onclick="startStoryMode()" style="margin-bottom: 30px;">
+                🎬 Vive nuestra historia
+            </button>
             <div class="timeline" id="timeline">
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
@@ -162,6 +246,31 @@
             </div>
         </section>
 
+        <!-- Sección: Constelación del Amor -->
+        <section class="section" id="constelacion-amor">
+            <h2>Nuestra Constelación</h2>
+            <p class="section-intro">Dos estrellas que brillan juntas</p>
+            <canvas id="constellation-canvas"></canvas>
+        </section>
+
+        <!-- Sección: Burbujas de Amor -->
+        <section class="section" id="burbujas-amor">
+            <h2>Burbujas de Amor</h2>
+            <p class="section-intro">Pincha las burbujas para descubrir mensajes</p>
+            <div class="bubbles-container" id="bubbles-container"></div>
+            <button class="interactive-button" onclick="createBubbles()">Crear Burbujas</button>
+        </section>
+
+        <!-- Sección: Foto Scratch -->
+        <section class="section" id="foto-scratch">
+            <h2>Rasca y Descubre</h2>
+            <p class="section-intro">Rasca la imagen para revelar un recuerdo especial</p>
+            <div class="scratch-container">
+                <canvas id="scratch-canvas"></canvas>
+                <img id="scratch-image" src="10.jpeg" alt="Imagen oculta">
+            </div>
+        </section>
+
         <!-- Sección: Mensajes del Corazón -->
         <section class="section" id="mensajes-corazon">
             <h2>Mensajes del Corazón</h2>
@@ -179,11 +288,24 @@
         </section>
     </div>
 
-    <!-- Pie de Página -->
+    <!-- Pie de Página con Árbol del Amor -->
     <footer>
+        <div class="love-tree-container">
+            <svg id="love-tree" viewBox="0 0 200 200"></svg>
+            <p class="tree-info">Visitas: <span id="visit-count">0</span> | Hojas: <span id="leaf-count">0</span>/100</p>
+        </div>
         <p class="footer-main">Creado con todo mi amor para ti</p>
         <p class="footer-sub">© 2025 - Un amor que trasciende el tiempo</p>
     </footer>
+
+    <!-- Modal: Carta de Amor -->
+    <div class="modal" id="letter-modal" role="dialog" aria-modal="true">
+        <div class="modal-content letter-content">
+            <h3>Carta para Ti ❤️</h3>
+            <div id="letter-text"></div>
+            <button class="interactive-button" onclick="closeLetterModal()">Cerrar</button>
+        </div>
+    </div>
 
     <!-- Modal: Sorpresa -->
     <div class="modal" id="surprise-modal" role="dialog" aria-labelledby="surprise-title" aria-modal="true">
@@ -215,6 +337,35 @@
             <button class="interactive-button" onclick="closeImageModal()" aria-label="Cerrar imagen">
                 Cerrar
             </button>
+        </div>
+    </div>
+
+    <!-- Modal: Pin del Mapa -->
+    <div class="modal" id="pin-modal" role="dialog" aria-modal="true">
+        <div class="modal-content">
+            <img id="pin-image" src="" alt="">
+            <h3 id="pin-title"></h3>
+            <p id="pin-date"></p>
+            <p id="pin-phrase"></p>
+            <button class="interactive-button" onclick="closePinModal()">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- Modal: Detalles del Corazón -->
+    <div class="modal" id="heart-details-modal" role="dialog" aria-modal="true">
+        <div class="modal-content">
+            <h3>Nuestro Tiempo Juntos</h3>
+            <p id="detailed-days"></p>
+            <button class="interactive-button" onclick="closeHeartDetails()">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- Modal: Memoria del Reloj -->
+    <div class="modal" id="clock-memory-modal" role="dialog" aria-modal="true">
+        <div class="modal-content">
+            <h3>Recuerdo de esta Hora</h3>
+            <p id="clock-memory-text"></p>
+            <button class="interactive-button" onclick="closeClockMemory()">Cerrar</button>
         </div>
     </div>
 
