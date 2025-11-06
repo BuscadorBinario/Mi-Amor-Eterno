@@ -18,11 +18,164 @@ body {
     min-height: 100vh;
 }
 
+body.night-mode {
+    background: linear-gradient(135deg, #0a0a1e 0%, #0d1021 25%, #050520 50%, #0a0a1e 75%, #0d1021 100%);
+}
+
+body.night-mode::before {
+    content: '🌙';
+    position: fixed;
+    top: 100px;
+    right: 100px;
+    font-size: 80px;
+    opacity: 0.6;
+    z-index: 1;
+    animation: moonGlow 3s ease-in-out infinite;
+}
+
+@keyframes moonGlow {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.1); }
+}
+
+body.night-mode .twinkling-star {
+    position: fixed;
+    color: #fff;
+    font-size: 20px;
+    opacity: 0;
+    animation: twinkle 3s ease-in-out infinite;
+    z-index: 1;
+    pointer-events: none;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+}
+
 /* Animación de fondo degradado */
 @keyframes gradientShift {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
+}
+
+/* ========================================
+   BOTÓN FLOTANTE TE AMO
+======================================== */
+.te-amo-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: linear-gradient(135deg, #ff69b4, #ff1493);
+    color: white;
+    border: none;
+    padding: 20px 30px;
+    border-radius: 50px;
+    font-size: 1.3em;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(255, 20, 147, 0.5);
+    z-index: 100;
+    transition: all 0.3s;
+    animation: buttonPulse 2s ease-in-out infinite;
+}
+
+@keyframes buttonPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.te-amo-button:hover {
+    transform: scale(1.15);
+    box-shadow: 0 15px 40px rgba(255, 20, 147, 0.7);
+}
+
+/* Canvas de fuegos artificiales */
+#fireworks-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    display: none;
+}
+
+#fireworks-canvas.active {
+    display: block;
+}
+
+/* ========================================
+   RELOJ CON FOTO DE FONDO
+======================================== */
+.clock-widget {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 120px;
+    height: 120px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    cursor: pointer;
+    transition: transform 0.3s;
+    border: 3px solid rgba(255, 215, 0, 0.6);
+}
+
+.clock-widget:hover {
+    transform: scale(1.1);
+}
+
+#clock-time {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #ffd700;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
+}
+
+/* ========================================
+   CORAZÓN PULSANTE CONTADOR
+======================================== */
+.heartbeat-counter {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    z-index: 100;
+    transition: transform 0.3s;
+}
+
+.heartbeat-counter:hover {
+    transform: scale(1.2);
+}
+
+.heart-icon {
+    font-size: 3em;
+    animation: heartbeat 1s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    25% { transform: scale(1.2); }
+    50% { transform: scale(1); }
+}
+
+.days-count {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #ffd700;
+    margin-top: 5px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
 }
 
 /* ========================================
@@ -53,6 +206,27 @@ body {
     }
     100% {
         transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Pétalos de rosa */
+.petal {
+    position: fixed;
+    font-size: 30px;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1000;
+    animation: petalFall 4s ease-out forwards;
+}
+
+@keyframes petalFall {
+    0% {
+        transform: translateY(-50px) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
         opacity: 0;
     }
 }
@@ -134,6 +308,17 @@ h1 {
     box-shadow: 0 12px 48px rgba(255,105,180,0.3);
 }
 
+.section.story-highlight {
+    border: 3px solid #ffd700;
+    box-shadow: 0 0 50px rgba(255, 215, 0, 0.8);
+    animation: sectionGlow 1.5s ease-in-out;
+}
+
+@keyframes sectionGlow {
+    0%, 100% { box-shadow: 0 0 50px rgba(255, 215, 0, 0.8); }
+    50% { box-shadow: 0 0 80px rgba(255, 215, 0, 1); }
+}
+
 h2 {
     font-size: 2.5em;
     text-align: center;
@@ -192,6 +377,10 @@ h2 {
     box-shadow: 0 20px 50px rgba(255,105,180,0.5);
 }
 
+.card:hover .heart-icon {
+    animation: heartbeat 0.5s ease-in-out infinite;
+}
+
 .card img {
     width: 100%;
     height: 100%;
@@ -218,6 +407,59 @@ h2 {
     font-size: 1.1em;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
     color: #ffd700;
+}
+
+/* ========================================
+   MAPA DEL AMOR
+======================================== */
+.love-map-container {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    margin: 30px auto;
+}
+
+.love-map-connections {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.love-map-pins {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+.love-pin {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #ff69b4, #ff1493);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    cursor: pointer;
+    box-shadow: 0 5px 20px rgba(255, 20, 147, 0.5);
+    animation: pinBeat 2s ease-in-out infinite;
+    transition: transform 0.3s;
+    border: 3px solid #ffd700;
+}
+
+@keyframes pinBeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.love-pin:hover {
+    transform: scale(1.3);
+    z-index: 10;
 }
 
 /* ========================================
@@ -317,6 +559,154 @@ h2 {
 }
 
 /* ========================================
+   ADIVINA LA FOTO
+======================================== */
+.guess-game-container {
+    max-width: 600px;
+    margin: 30px auto;
+    text-align: center;
+}
+
+.guess-image-container {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    margin: 0 auto 30px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+#guess-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(20px);
+    transition: filter 1s;
+}
+
+#guess-image.revealed {
+    filter: blur(0);
+}
+
+.guess-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3em;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.guess-overlay.show {
+    opacity: 1;
+}
+
+.guess-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.guess-options button {
+    background: rgba(255, 182, 193, 0.2);
+    color: #ffd700;
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    padding: 15px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 1em;
+}
+
+.guess-options button:hover {
+    background: rgba(255, 182, 193, 0.4);
+    border-color: #ffd700;
+    transform: scale(1.05);
+}
+
+/* ========================================
+   ENCUENTRA EL BESO
+======================================== */
+.kiss-game-container {
+    max-width: 700px;
+    margin: 30px auto;
+    text-align: center;
+}
+
+.kiss-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: crosshair;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.kiss-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.kiss-heart-overlay {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 5em;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s;
+}
+
+.kiss-heart-overlay.revealed {
+    opacity: 0;
+}
+
+.kiss-confetti {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.kiss-counter {
+    font-size: 1.5em;
+    color: #ffd700;
+    font-weight: bold;
+}
+
+.confetti-heart {
+    position: absolute;
+    font-size: 30px;
+    animation: confettiFall 2s ease-out forwards;
+}
+
+@keyframes confettiFall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(500px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* ========================================
    FRASES QUE ME HICISTE DECIR
 ======================================== */
 .phrases-container {
@@ -380,6 +770,65 @@ h2 {
 }
 
 /* ========================================
+   CITAS PENDIENTES
+======================================== */
+.dates-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.date-item {
+    background: rgba(255, 182, 193, 0.2);
+    padding: 25px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    transition: all 0.3s;
+}
+
+.date-item:hover {
+    transform: translateX(10px);
+    border-color: #ffd700;
+    box-shadow: 0 5px 20px rgba(255, 105, 180, 0.3);
+}
+
+.date-item.completed {
+    opacity: 0.6;
+    background: rgba(50, 205, 50, 0.2);
+    border-color: #32cd32;
+}
+
+.date-info {
+    flex: 1;
+}
+
+.date-emoji {
+    font-size: 3em;
+    margin-right: 20px;
+}
+
+.date-title {
+    font-size: 1.3em;
+    color: #ffd700;
+    margin-bottom: 5px;
+}
+
+.date-details {
+    color: #ffb6c1;
+    font-size: 1em;
+}
+
+.date-checkbox {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+/* ========================================
    JUEGO DE ROMPECABEZAS DEL AMOR
 ======================================== */
 .puzzle-container {
@@ -437,6 +886,68 @@ h2 {
 }
 
 /* ========================================
+   ESCRIBE TU PROPIO POEMA
+======================================== */
+.poem-editor {
+    max-width: 700px;
+    margin: 30px auto;
+    text-align: center;
+}
+
+.poem-input {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 20px;
+    background: rgba(255, 182, 193, 0.1);
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    border-radius: 10px;
+    color: #ffd700;
+    font-size: 1.2em;
+    font-family: inherit;
+}
+
+.poem-textarea {
+    width: 100%;
+    min-height: 200px;
+    padding: 15px;
+    margin-bottom: 20px;
+    background: rgba(255, 182, 193, 0.1);
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    border-radius: 10px;
+    color: #ffb6c1;
+    font-size: 1.1em;
+    line-height: 1.8;
+    font-family: 'Georgia', serif;
+    resize: vertical;
+}
+
+.poem-suggestions {
+    margin-bottom: 20px;
+}
+
+.poem-suggestions p {
+    color: #ffd700;
+    margin-bottom: 10px;
+}
+
+.poem-suggestions button {
+    background: rgba(255, 182, 193, 0.2);
+    color: #ffb6c1;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    padding: 8px 15px;
+    margin: 5px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.poem-suggestions button:hover {
+    background: rgba(255, 182, 193, 0.4);
+    border-color: #ffd700;
+    transform: scale(1.1);
+}
+
+/* ========================================
    POEMAS DE MI CORAZÓN
 ======================================== */
 .poem-grid {
@@ -473,6 +984,14 @@ h2 {
     line-height: 1.8;
     font-size: 1.1em;
     color: #ffb6c1;
+}
+
+.poem-card .poem-author {
+    margin-top: 15px;
+    font-size: 0.9em;
+    font-style: italic;
+    color: #ffd700;
+    text-align: right;
 }
 
 /* ========================================
@@ -537,6 +1056,116 @@ h2 {
     box-shadow: 0 0 20px rgba(255,215,0,0.8);
     z-index: 2;
     border: 3px solid #1a1a2e;
+}
+
+/* ========================================
+   CONSTELACIÓN DEL AMOR
+======================================== */
+#constellation-canvas {
+    width: 100%;
+    height: 400px;
+    border-radius: 20px;
+    background: radial-gradient(circle, rgba(15, 52, 96, 0.5), transparent);
+    margin: 30px 0;
+}
+
+/* ========================================
+   BURBUJAS DE AMOR
+======================================== */
+.bubbles-container {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    border-radius: 20px;
+    background: rgba(255, 182, 193, 0.1);
+    margin: 30px 0;
+    overflow: hidden;
+}
+
+.bubble {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 182, 193, 0.8), rgba(255, 105, 180, 0.4));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    cursor: pointer;
+    animation: bubbleFloat 3s ease-in-out infinite;
+    box-shadow: 0 5px 20px rgba(255, 105, 180, 0.5);
+    transition: transform 0.3s;
+}
+
+.bubble:hover {
+    transform: scale(1.2);
+}
+
+@keyframes bubbleFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+.bubble-pop {
+    animation: bubblePop 0.5s ease-out forwards;
+}
+
+@keyframes bubblePop {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(2); opacity: 0; }
+}
+
+.bubble-message {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.9);
+    color: #ffd700;
+    padding: 15px 20px;
+    border-radius: 10px;
+    font-size: 1em;
+    animation: messageFloat 2s ease-out forwards;
+    pointer-events: none;
+    z-index: 10;
+}
+
+@keyframes messageFloat {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-100px); opacity: 0; }
+}
+
+/* ========================================
+   FOTO SCRATCH
+======================================== */
+.scratch-container {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    margin: 30px auto;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+#scratch-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: grab;
+    z-index: 2;
+}
+
+#scratch-canvas:active {
+    cursor: grabbing;
+}
+
+#scratch-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
 }
 
 /* ========================================
@@ -653,6 +1282,57 @@ h2 {
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
+/* Carta de amor modal */
+.letter-content {
+    font-family: 'Georgia', serif;
+    text-align: left;
+}
+
+#letter-text {
+    font-size: 1.3em;
+    line-height: 2;
+    color: #ffb6c1;
+    text-align: left;
+}
+
+/* ========================================
+   ÁRBOL DEL AMOR
+======================================== */
+.love-tree-container {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#love-tree {
+    width: 250px;
+    height: 250px;
+    margin: 0 auto;
+}
+
+.tree-leaf {
+    animation: leafGrow 1s ease-out;
+}
+
+@keyframes leafGrow {
+    0% { opacity: 0; transform: scale(0); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+.tree-blossom {
+    animation: blossomFall 3s ease-out forwards;
+}
+
+@keyframes blossomFall {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(200px) rotate(360deg); opacity: 0; }
+}
+
+.tree-info {
+    margin-top: 15px;
+    font-size: 1.1em;
+    color: #ffd700;
+}
+
 /* ========================================
    PIE DE PÁGINA
 ======================================== */
@@ -729,5 +1409,60 @@ footer {
     .interactive-button {
         padding: 15px 30px;
         font-size: 1em;
+    }
+    
+    .clock-widget {
+        width: 80px;
+        height: 80px;
+    }
+    
+    #clock-time {
+        font-size: 1em;
+    }
+    
+    .te-amo-button {
+        bottom: 20px;
+        right: 20px;
+        padding: 15px 25px;
+        font-size: 1em;
+    }
+    
+    .heartbeat-counter {
+        bottom: 20px;
+        left: 20px;
+    }
+    
+    .heart-icon {
+        font-size: 2em;
+    }
+    
+    .days-count {
+        font-size: 1em;
+    }
+    
+    .love-map-container {
+        height: 400px;
+    }
+    
+    .guess-image-container {
+        width: 100%;
+        height: 300px;
+    }
+    
+    .kiss-image-wrapper {
+        height: 350px;
+    }
+    
+    .scratch-container {
+        width: 100%;
+        height: 350px;
+    }
+    
+    #constellation-canvas {
+        height: 300px;
+    }
+    
+    .bubbles-container {
+        height: 300px;
     }
 }
